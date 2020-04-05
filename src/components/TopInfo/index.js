@@ -1,19 +1,32 @@
 import React, { Component } from "react";
 import { FiUser, FiHeart } from "react-icons/fi";
+import { connect } from "react-redux";
+import { Link } from 'react-router-dom'
 
-export default class TopInfo extends Component {
+class TopInfo extends Component {
   render() {
     return (
       <div className="top-info">
         <span>
           <FiHeart />
-          <b>1</b>
+          <b>{this.props.likes}</b>
         </span>
         <span>
           <FiUser />
-          Eu
+          <Link to="/perfil">
+            {this.props.name}
+          </Link>
         </span>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    name: state.user.name,
+    likes: state.user.likes
+  }
+}
+
+export default connect(mapStateToProps)(TopInfo)
